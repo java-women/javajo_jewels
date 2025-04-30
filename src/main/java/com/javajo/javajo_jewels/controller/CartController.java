@@ -21,13 +21,13 @@ public class CartController {
         return response;
     }
 
-    @PostMapping("/items")
+    @PostMapping("/products")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addCart(@RequestBody Cart request) {
         System.out.println("called addCart");
     }
 
-    @DeleteMapping("/items/{productId}")
+    @DeleteMapping("/products/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable(name = "productId") String productId) {
         System.out.println("called deleteProduct");

@@ -29,7 +29,7 @@ public class OrderController {
             products.add(product);
         }
 
-        response.setItems(products);
+        response.setProducts(products);
         return response;
     }
 
