@@ -22,25 +22,9 @@ public class CartController {
     }
 
     @PostMapping("/items")
-    public List<Cart> addCart(@RequestBody Cart request) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addCart(@RequestBody Cart request) {
         System.out.println("called addCart");
-        List<Cart> response = new ArrayList<>();
-        response.add(request);
-        response.add(createCart(5, 1));
-        response.add(createCart(4, 1));
-        response.add(createCart(3, 1));
-        return response;
-    }
-
-    @PutMapping("/items/{productId}")
-    public List<Cart> updateCart(@PathVariable(name = "productId") String productId, @RequestBody Cart request){
-        System.out.println("called updateCart");
-        List<Cart> response = new ArrayList<>();
-        response.add(request);
-        response.add(createCart(100, 1));
-        response.add(createCart(101, 1));
-        response.add(createCart(102, 1));
-        return response;
     }
 
     @DeleteMapping("/items/{productId}")
@@ -49,19 +33,24 @@ public class CartController {
         System.out.println("called deleteProduct");
     }
 
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCart() {
-        System.out.println("called deleteCart");
-    }
-
-    private Cart createCart(Integer productId, Integer quantity) {
+    private Cart createCart(Integer id, Integer amount) {
         Cart cart = new Cart();
-        cart.setProductId(productId);
-        cart.setQuantity(quantity);
-        Product product = new Product();
-        product.setId(productId);
-        product.setName("商品" + productId);
+        cart.setId(id);
+        cart.setTotalAmount(amount);
+
+        List<Product> products = new ArrayList<>();
+
+        for (int i = 0 ; i < 3; i++) {
+            Product product = new Product();
+            product.setId(i);
+            product.setName("商品" + i);
+            product.setPrice(100 * i);
+            product.setImageUrl("https://test.com/" + i + ".png");
+            products.add(product);
+        }
+
+        cart.setProducts(products);
+
         return cart;
     }
 }

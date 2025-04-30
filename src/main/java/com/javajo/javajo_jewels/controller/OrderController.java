@@ -17,37 +17,19 @@ public class OrderController {
         System.out.println("called createOrder");
         double orderId = Math.random();
         Order response = createOrder(Double.valueOf(orderId).intValue());
-        List<Cart> items = new ArrayList<>();
-        items.add(request);
-        response.setItems(items);
-        return response;
-    }
 
-    // TODO SessionIdの受け渡し
-    @GetMapping
-    public List<Order> getOrders() {
-        System.out.println("called getOrders");
-        List<Order> response = new ArrayList<>();
-        response.add(createOrder(1));
-        response.add(createOrder(2));
-        response.add(createOrder(3));
-        return response;
-    }
+        List<Product> products = new ArrayList<>();
 
-    @GetMapping("/{orderId}")
-    public Order getOrder(@PathVariable (name = "orderId") String orderId) {
-        System.out.println("called getOrder");
-        Order response = createOrder(1);
-        Product product = new Product();
-        product.setId(1);
-        product.setName("商品1");
-        Cart cart = new Cart();
-        cart.setProductId(1);
-        cart.setQuantity(1);
-        cart.setProduct(product);
-        List<Cart> carts = new ArrayList<>();
-        carts.add(cart);
-        response.setItems(carts);
+        for (int i = 0 ; i < 3; i++) {
+            Product product = new Product();
+            product.setId(i);
+            product.setName("商品" + i);
+            product.setPrice(100 * i);
+            product.setImageUrl("https://test.com/" + i + ".png");
+            products.add(product);
+        }
+
+        response.setItems(products);
         return response;
     }
 
