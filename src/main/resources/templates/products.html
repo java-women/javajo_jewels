@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/products.css}" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="header-contents">
+        <div class="javajo-jewels">Java女宝石</div>
+        <a href=""><img class="cart-icon" th:src="@{/images/shopping-cart.svg}"/></a>
+    </div>
+</header>
+
+<main class="main">
+    <div class="main-contents">
+        <h1 class="title">全ての商品</h1>
+
+        <div class="products">
+            <a th:href="|/products/${product.id}|" th:each="product : ${products}">
+                <div class="product">
+                    <img th:src="${product.imageUrl}"/>
+                    <div class="product-title" th:text="${product.name}"></div>
+                    <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
