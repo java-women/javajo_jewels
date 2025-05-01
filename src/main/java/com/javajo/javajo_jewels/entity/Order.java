@@ -4,8 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public record Order(
-        @Id
-        Integer id,
-        Integer amount
-) {}
+public class Order {
+    @Id
+    Integer id;
+    Integer amount;
+}
