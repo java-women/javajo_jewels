@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/product-detail.css}" rel="stylesheet">
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+
+<main class="main">
+    <div class="main-contents">
+        <div class="product">
+            <img th:src="${product.imageUrl}" class="image" />
+            <div class="product-contents">
+                <div class="title" th:text="${product.name}"></div>
+                <div class="price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+
+                <form th:action="@{/cart}" th:method="post">
+                    <input type="hidden" name="product-id" th:value="${product.id}" />
+                    <button class="add-cart-button">カートに追加する</button>
+                </form>
+
+                <div class="description" th:text="${product.description}"></div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
