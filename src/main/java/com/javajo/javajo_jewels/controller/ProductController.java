@@ -1,23 +1,29 @@
 package com.javajo.javajo_jewels.controller;
 
 import com.javajo.javajo_jewels.model.Product;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("api/products")
+@Controller
+@RequestMapping("/products")
 public class ProductController {
 
     @GetMapping
-    public List<Product> getProducts() {
+    public String products(Model model) {
         System.out.println("called getProducts");
-        List<Product> response = new ArrayList<>();
-        response.add(createProduct(1));
-        response.add(createProduct(2));
-        response.add(createProduct(3));
-        return response;
+
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            products.add(createProduct(i + 1));
+        }
+
+        model.addAttribute("products", products);
+
+        return "products";
     }
 
     @GetMapping("/{id}")
@@ -31,6 +37,8 @@ public class ProductController {
         product.setId(id);
         product.setName("商品"+ id);
         product.setDescription("商品" + id + "の説明");
+        product.setPrice(3400);
+        product.setImageUrl("https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078");
         return product;
     }
 
