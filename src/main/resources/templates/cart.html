@@ -1,1 +1,52 @@
-カート
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/cart.css}" rel="stylesheet">
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+
+<main class="main">
+    <div class="main-contents">
+        <h1 class="title">あなたのカート</h1>
+
+        <div class="cart">
+        <table class="borderless-table">
+            <thead>
+            <tr>
+                <th>商品</th>
+                <th>合計</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${cart.products}">
+                <td>
+                    <div class="product">
+                    <img th:src="${product.imageUrl}"/>
+                    <div class="product-title" th:text="${product.name}"></div>
+                    <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+                    </div>
+                </td>
+                <td th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="cart-summary">
+            <div class="total-amount">
+                <span class="total-label">合計金額</span>
+                <span class="total-price" th:text="|¥${#numbers.formatInteger(cart.totalAmount, 3, 'COMMA')}|"></span>
+            </div>
+
+            <div class="order-button-area">
+                <form th:action="@{/order}" method="post">
+                    <button type="submit" class="order-button">注文する</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

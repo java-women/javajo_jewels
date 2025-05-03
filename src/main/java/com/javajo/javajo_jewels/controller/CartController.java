@@ -4,6 +4,7 @@ import com.javajo.javajo_jewels.model.Cart;
 import com.javajo.javajo_jewels.model.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
     @GetMapping
-    public List<Cart> getCart() {
+    public String getCart(Model model) {
         System.out.println("called getCart");
-        List<Cart> response = new ArrayList<>();
-        response.add(createCart(1, 1));
-        response.add(createCart(2, 1));
-        response.add(createCart(3, 1));
-        return response;
+        Cart cart = createCart(1);
+
+        model.addAttribute("cart", cart);
+
+        return "cart";
     }
 
     @PostMapping
@@ -35,19 +36,19 @@ public class CartController {
         System.out.println("called deleteProduct");
     }
 
-    private Cart createCart(Integer id, Integer amount) {
+    private Cart createCart(Integer id) {
         Cart cart = new Cart();
         cart.setId(id);
-        cart.setTotalAmount(amount);
+        cart.setTotalAmount(300);
 
         List<Product> products = new ArrayList<>();
 
-        for (int i = 0 ; i < 3; i++) {
+        for (int i = 1 ; i < 4; i++) {
             Product product = new Product();
             product.setId(i);
             product.setName("商品" + i);
             product.setPrice(100 * i);
-            product.setImageUrl("https://test.com/" + i + ".png");
+            product.setImageUrl("https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078");
             products.add(product);
         }
 
