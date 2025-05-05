@@ -6,7 +6,12 @@
     <link th:href="@{/css/products.css}" rel="stylesheet">
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
+<header class="header">
+    <div class="header-contents">
+        <div class="javajo-jewels">Java女宝石</div>
+        <a href=""><img class="cart-icon" th:src="@{/images/shopping-cart.svg}"/></a>
+    </div>
+</header>
 
 <main class="main">
     <div class="main-contents">

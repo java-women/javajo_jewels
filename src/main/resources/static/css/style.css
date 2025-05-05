@@ -7,33 +7,3 @@ html {
 a {
   text-decoration: none;
 }
-
-button {
-  cursor: pointer;
-}
-
-.header {
-  height: 64px;
-  border-bottom: solid rgba(18, 18, 18, 0.08) 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.header-contents {
-  display: flex;
-  justify-content: space-between;
-  width: 1200px;
-  padding-left: 48px;
-  padding-right: 48px;
-}
-
-.javajo-jewels {
-  color: #D32D71;
-  font-weight: 700;
-  font-size: 24px;
-}
-
-.cart-icon {
-  width: 24px;
-}

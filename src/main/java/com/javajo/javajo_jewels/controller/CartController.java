@@ -3,14 +3,13 @@ package com.javajo.javajo_jewels.controller;
 import com.javajo.javajo_jewels.model.Cart;
 import com.javajo.javajo_jewels.model.Product;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("/cart")
+@RestController
+@RequestMapping("api/cart")
 public class CartController {
     @GetMapping
     public List<Cart> getCart() {
@@ -22,11 +21,10 @@ public class CartController {
         return response;
     }
 
-    @PostMapping
-    public String addCart(@RequestParam("product-id") int productId) {
+    @PostMapping("/products")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addCart(@RequestBody Cart request) {
         System.out.println("called addCart");
-        System.out.println(productId);
-        return "cart";
     }
 
     @DeleteMapping("/products/{productId}")

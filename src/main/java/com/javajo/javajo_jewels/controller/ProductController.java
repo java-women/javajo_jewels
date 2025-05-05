@@ -27,13 +27,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String productDetail(@PathVariable(name = "id") String id, Model model){
+    public Product getProductDetail(@PathVariable(name = "id") String id){
         System.out.println("called getProductDetail");
-
-        Product product = createProduct(Integer.parseInt(id));
-        model.addAttribute("product", product);
-
-        return "product-detail";
+        return createProduct(Integer.parseInt(id));
     }
 
     private Product createProduct(Integer id) {
