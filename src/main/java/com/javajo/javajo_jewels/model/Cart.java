@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
-    private Integer id;
     private Integer totalAmount;
     private List<Product> products;
 }
