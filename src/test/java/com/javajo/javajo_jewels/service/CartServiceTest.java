@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,19 +33,19 @@ class CartServiceTest {
 
         var product1 = ProductEntity.builder()
                 .name("きらめきリボンブレスレット")
-                .price(new BigDecimal("200.0"))
+                .price(200)
                 .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
                 .imageUrl("http://image1.jpg")
                 .build();
         var product2 = ProductEntity.builder()
                 .name("ふわもこユニコーンポーチ")
-                .price(new BigDecimal("550.0"))
+                .price(550)
                 .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
                 .imageUrl("http://image2.jpg")
                 .build();
         var product3 = ProductEntity.builder()
                 .name("スイートキャンディボールペン")
-                .price(new BigDecimal("180.0"))
+                .price(180)
                 .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
                 .imageUrl("http://image3.jpg")
                 .build();
@@ -66,7 +65,7 @@ class CartServiceTest {
     void addCartUpdateTest() {
         var actual = cartService.addCart(new Cart(750, List.of(
                 products.get(0),
-                products.get(1))), 3);
+                products.get(1))), products.get(2).getId());
 
         assertThat(actual)
                 .isEqualTo(
@@ -74,5 +73,15 @@ class CartServiceTest {
                                 products.get(0),
                                 products.get(1),
                                 products.get(2))));
+    }
+
+    @Test
+    void deleteCartTest() {
+        var actual = cartService.deleteCart(new Cart(750, List.of(
+                products.get(0),
+                products.get(1))), products.get(0).getId());
+
+        assertThat(actual)
+                .isEqualTo(new Cart(550, List.of(products.get(1))));
     }
 }

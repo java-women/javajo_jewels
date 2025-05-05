@@ -17,7 +17,7 @@
                 <div class="price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
 
                 <form th:action="@{/cart}" th:method="post">
-                    <input type="hidden" name="product-id" th:value="${product.id}" />
+                    <input type="hidden" name="productId" th:value="${product.id}" />
                     <button class="add-cart-button">カートに追加する</button>
                 </form>
 

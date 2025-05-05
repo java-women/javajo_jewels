@@ -1,65 +1,53 @@
 package com.javajo.javajo_jewels.controller;
 
 import com.javajo.javajo_jewels.model.Cart;
-import com.javajo.javajo_jewels.model.Product;
 import com.javajo.javajo_jewels.service.CartService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
-    private CartService cartService;
+    @Autowired
+    CartService cartService;
 
     @GetMapping
-    public List<Cart> getCart() {
+    public String cart(HttpSession session, Model model) {
         System.out.println("called getCart");
-        List<Cart> response = new ArrayList<>();
-        response.add(createCart(1));
-        response.add(createCart(1));
-        response.add(createCart(1));
-        return response;
+
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+
+        model.addAttribute("cart", sessionCart);
+
+        return "cart";
     }
 
     @PostMapping
-    public String addCart(@RequestParam("product-id") int productId, HttpSession session) {
+    public String addCart(@RequestParam("productId") int productId, HttpSession session, Model model) {
         System.out.println("called addCart");
 
-        Cart cart = (Cart) session.getAttribute("cart");
-        cartService.addCart(cart, productId);
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+        Cart cart = cartService.addCart(sessionCart, productId);
         session.setAttribute("cart", cart);
+
+        model.addAttribute("cart", cart);
 
         return "cart";
     }
 
     @DeleteMapping("/products/{productId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable(name = "productId") String productId) {
+    public String deleteProduct(@RequestParam(name = "productId") int productId, HttpSession session, Model model) {
         System.out.println("called deleteProduct");
-    }
 
-    private Cart createCart(Integer amount) {
-        Cart cart = new Cart();
-        cart.setTotalAmount(amount);
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+        Cart cart = cartService.deleteCart(sessionCart, productId);
+        session.setAttribute("cart", cart);
 
-        List<Product> products = new ArrayList<>();
+        model.addAttribute("cart", cart);
 
-        for (int i = 0 ; i < 3; i++) {
-            Product product = new Product();
-            product.setId(i);
-            product.setName("商品" + i);
-            product.setPrice(100 * i);
-            product.setImageUrl("https://test.com/" + i + ".png");
-            products.add(product);
-        }
-
-        cart.setProducts(products);
-
-        return cart;
+        return "redirect:cart";
     }
 }

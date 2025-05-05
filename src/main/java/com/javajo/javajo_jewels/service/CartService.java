@@ -30,4 +30,10 @@ public class CartService {
 
         return new Cart(totalAmount, products);
     }
+
+    public Cart deleteCart(Cart cart, Integer productId) {
+        List<Product> products = cart.getProducts().stream().filter(p -> !p.getId().equals(productId)).toList();
+        Integer totalAmount = products.stream().mapToInt(Product::getPrice).sum();
+        return new Cart(totalAmount, products);
+    }
 }
