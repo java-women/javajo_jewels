@@ -1,6 +1,5 @@
 package com.javajo.javajo_jewels.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,19 +29,19 @@ class ProductServiceTest {
     void setUp() {
         var product1 = ProductEntity.builder()
                 .name("きらめきリボンブレスレット")
-                .price(new BigDecimal("200.0"))
+                .price(200)
                 .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
                 .imageUrl("http://image1.jpg")
                 .build();
         var product2 = ProductEntity.builder()
                 .name("ふわもこユニコーンポーチ")
-                .price(new BigDecimal("550.0"))
+                .price(550)
                 .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
                 .imageUrl("http://image2.jpg")
                 .build();
         var product3 = ProductEntity.builder()
                 .name("スイートキャンディボールペン")
-                .price(new BigDecimal("180.0"))
+                .price(180)
                 .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
                 .imageUrl("http://image3.jpg")
                 .build();
