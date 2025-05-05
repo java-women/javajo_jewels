@@ -2,28 +2,36 @@ package com.javajo.javajo_jewels.service;
 
 import java.util.List;
 
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import com.javajo.javajo_jewels.entity.OrderEntity;
+import com.javajo.javajo_jewels.entity.OrderProductEntity;
 import com.javajo.javajo_jewels.entity.ProductEntity;
-import com.javajo.javajo_jewels.model.Product;
+import com.javajo.javajo_jewels.repository.OrderProductRepository;
+import com.javajo.javajo_jewels.repository.OrderRepository;
 import com.javajo.javajo_jewels.repository.ProductRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
 
 @DataJpaTest
-@Import(ProductService.class)
-class ProductServiceTest {
+@Import({ProductService.class, OrderService.class})
+class OrderServiceTest {
 
     @Autowired
-    ProductService productService;
+    OrderService orderService;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
     @BeforeEach
     void setUp() {
@@ -49,36 +57,26 @@ class ProductServiceTest {
     }
 
     @Test
-    void getAllProductsTest() {
-        var actual = productService.getAllProducts();
+    void createOrderTest() {
+        var productIds = List.of(1, 2);
+        orderService.createOrder(productIds);
 
-        assertThat(actual)
-                .hasSize(3)
+        var orders = orderRepository.findAll();
+        assertThat(orders)
+                .hasSize(1)
+                .extracting(OrderEntity::getAmount)
+                .contains(750);
+
+        var orderId = orders.getFirst().getId();
+        var orderProducts = orderProductRepository.findAll();
+        assertThat(orderProducts)
+                .hasSize(2)
                 .extracting(
-                        Product::getName,
-                        Product::getDescription,
-                        Product::getPrice,
-                        Product::getImageUrl)
+                        OrderProductEntity::getOrderId,
+                        OrderProductEntity::getProductId)
                 .containsExactlyInAnyOrder(
-                        tuple("きらめきリボンブレスレット", "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。", 200, "http://image1.jpg"),
-                        tuple("ふわもこユニコーンポーチ", "ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。", 550, "http://image2.jpg"),
-                        tuple("スイートキャンディボールペン", "カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！", 180, "http://image3.jpg"));
-    }
-
-    @Test
-    void getProductByIdTest() {
-        var actual = productService.getProductById(1);
-
-        assertThat(actual)
-                .extracting(
-                        Product::getName,
-                        Product::getDescription,
-                        Product::getPrice,
-                        Product::getImageUrl)
-                .containsExactly(
-                        "きらめきリボンブレスレット",
-                        "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。",
-                        200,
-                        "http://image1.jpg");
+                        Tuple.tuple(orderId, 1),
+                        Tuple.tuple(orderId, 2)
+                );
     }
 }
