@@ -27,25 +27,25 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        var product1 = ProductEntity.builder()
-                .name("きらめきリボンブレスレット")
-                .price(200)
-                .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
-                .imageUrl("http://image1.jpg")
-                .build();
-        var product2 = ProductEntity.builder()
-                .name("ふわもこユニコーンポーチ")
-                .price(550)
-                .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
-                .imageUrl("http://image2.jpg")
-                .build();
-        var product3 = ProductEntity.builder()
-                .name("スイートキャンディボールペン")
-                .price(180)
-                .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
-                .imageUrl("http://image3.jpg")
-                .build();
-        productRepository.saveAll(List.of(product1, product2, product3));
+//        var product1 = ProductEntity.builder()
+//                .name("きらめきリボンブレスレット")
+//                .price(200)
+//                .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
+//                .imageUrl("http://image1.jpg")
+//                .build();
+//        var product2 = ProductEntity.builder()
+//                .name("ふわもこユニコーンポーチ")
+//                .price(550)
+//                .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
+//                .imageUrl("http://image2.jpg")
+//                .build();
+//        var product3 = ProductEntity.builder()
+//                .name("スイートキャンディボールペン")
+//                .price(180)
+//                .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
+//                .imageUrl("http://image3.jpg")
+//                .build();
+//        productRepository.saveAll(List.of(product1, product2, product3));
     }
 
     @Test
@@ -60,9 +60,9 @@ class ProductServiceTest {
                         Product::getPrice,
                         Product::getImageUrl)
                 .containsExactlyInAnyOrder(
-                        tuple("きらめきリボンブレスレット", "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。", 200, "http://image1.jpg"),
-                        tuple("ふわもこユニコーンポーチ", "ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。", 550, "http://image2.jpg"),
-                        tuple("スイートキャンディボールペン", "カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！", 180, "http://image3.jpg"));
+                        tuple("きらめきリボンブレスレット", "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。", 200, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"),
+                        tuple("ふわもこユニコーンポーチ", "ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。", 550, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"),
+                        tuple("スイートキャンディボールペン", "カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！", 180, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"));
     }
 
     @Test
@@ -79,6 +79,6 @@ class ProductServiceTest {
                         "きらめきリボンブレスレット",
                         "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。",
                         200,
-                        "http://image1.jpg");
+                        "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078");
     }
 }
