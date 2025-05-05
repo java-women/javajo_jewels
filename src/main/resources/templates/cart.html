@@ -10,45 +10,38 @@
 
 <main class="main">
     <div class="main-contents">
-        <div class="title-wrapper-with-link">
-            <h1 class="title">あなたのカート</h1>
-            <a th:href="|/products|" class="underlined-link">買い物を続ける</a>
-        </div>
+        <h1 class="title">あなたのカート</h1>
+        <div class="cart-grid">
+            <!-- ヘッダー部分 -->
+            <div class="cart-header">
+                <div class="cart-header-item" style="width: 50%">商品</div>
+                <div class="cart-header-item">合計</div>
+            </div>
 
-        <table class="cart-items">
-            <thead>
-            <tr>
-                <th class="caption-with-letter-spacing" colspan="2" scope="col">商品</th>
-                <th class="right caption-with-letter-spacing" colspan="1" scope="col">合計</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product : ${cart.products}" class="cart-item">
-                <td class="cart-item__media">
-                    <img th:src="${product.imageUrl}" class="cart-item__image" alt="" loading="lazy" width="150"
-                         height="150"/>
-                </td>
-                <td class="cart-item__detail">
-                    <div class="product-title" th:text="${product.name}"></div>
-                    <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
-                </td>
-                <td th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"
-                    class="cart-item__total right"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</main>
-<main class="main">
-    <div class="cart-summary">
-        <div class="total-amount">
-            <h2 class="total-label">合計金額</h2>
-            <p class="total-price" th:text="|¥${#numbers.formatInteger(cart.totalAmount, 3, 'COMMA')}|"></p>
+            <!-- 商品アイテム部分 -->
+            <div class="cart-row" th:each="product : ${cart.products}">
+                <div class="cart-cell">
+                    <div class="cart-item-info">
+                        <img th:src="${product.imageUrl}" alt="商品画像" class="cart-item-image"/>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name" th:text="${product.name}"></div>
+                            <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|" class="cart-item-price"></div>
+                        </div>
+                    </div>
+                </div>
+                <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|" class="cart-item-total"></div>
+            </div>
         </div>
-        <div class="order-button-area">
-            <form th:action="@{/order}" method="post">
-                <button type="submit" class="cart-button">注文する</button>
-            </form>
+        <div class="cart-summary">
+            <div class="total-amount">
+                <h2 class="total-label">合計金額</h2>
+                <p class="total-price" th:text="|¥${#numbers.formatInteger(cart.totalAmount, 3, 'COMMA')}|"></p>
+            </div>
+            <div class="order-button-area">
+                <form th:action="@{/order}" method="post">
+                    <button type="submit" class="order-button">注文する</button>
+                </form>
+            </div>
         </div>
     </div>
 </main>
