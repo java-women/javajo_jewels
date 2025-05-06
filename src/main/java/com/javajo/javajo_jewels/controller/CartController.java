@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+    private final CartService cartService;
+
     @Autowired
-    CartService cartService;
+    public CartController(CartService cartService){
+        this.cartService = cartService;
+    }
 
     @GetMapping
     public String cart(HttpSession session, Model model) {
