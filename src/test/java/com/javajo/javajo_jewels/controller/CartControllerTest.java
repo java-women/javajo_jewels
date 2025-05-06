@@ -14,6 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = CartController.class,excludeAutoConfiguration = {SecurityAutoConfiguration.class})
@@ -31,6 +32,7 @@ public class CartControllerTest {
         session.setAttribute("cart", cart);
 
         mockMvc.perform(get("/cart").session(session))
+                .andDo(print())
                 .andExpect(view().name("cart"));
     }
 
@@ -45,6 +47,7 @@ public class CartControllerTest {
         mockMvc.perform(post("/cart")
                         .param("productId", "1")
                         .session(session))
+                        .andDo(print())
                         .andExpect(view().name("cart"));
         verify(cartService, times(1)).addCart(any(Cart.class), anyInt());
 
@@ -61,6 +64,7 @@ public class CartControllerTest {
         mockMvc.perform(delete("/cart/products/1")
                         .param("productId", "1")
                         .session(session))
+                        .andDo(print())
                         .andExpect(status().is3xxRedirection())
                         .andExpect(redirectedUrl("cart"));
 

@@ -7,19 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = OrderController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 public class OrderControllerTest {
@@ -27,35 +23,23 @@ public class OrderControllerTest {
     MockMvc mockMvc;
     @MockitoBean
     OrderService orderService;
+    @MockitoBean
+    Cart sessionCart;
 
     @Test
     void createOrderTest() throws Exception {
-        var param = new Cart();
-        var products = new ArrayList<Product>();
-        products.add(createProduct(1));
-        products.add(createProduct(2));
-        param.setProducts(products);
-        param.setTotalAmount(300);
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("cart", sessionCart);
 
-        var productIds = Arrays.asList(1,2);
-        doNothing().when(orderService).createOrder(productIds);
+        List<Integer> productIds = List.of(1, 2, 3);
+        when(sessionCart.getProducts()).thenReturn(productIds.stream()
+                .map(id -> new Product(id, "name", "desctiption", 100, "test"))
+                .toList());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/orders"))
-                .andDo(print());
-                // TODO 返却結果の確認
-                // .andExpect(view().name("products"));
+        mockMvc.perform(post("/orders").session(session))
+                .andExpect(status().isOk())
+                .andExpect(view().name("products"));
 
-        // verify(orderService, times(1)).createOrder(productIds);
-
-    }
-
-    private Product createProduct(int id) {
-        var result = new Product();
-        result.setId(id);
-        result.setName("商品" + id);
-        result.setPrice(id * 100);
-        result.setDescription("商品" + id + "の説明");
-        result.setImageUrl("http://test.com/" + id + ".png");
-        return result;
+        verify(orderService, times(1)).createOrder(productIds);
     }
 }
