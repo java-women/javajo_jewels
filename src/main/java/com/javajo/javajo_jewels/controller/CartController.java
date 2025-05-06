@@ -3,6 +3,8 @@ package com.javajo.javajo_jewels.controller;
 import com.javajo.javajo_jewels.model.Cart;
 import com.javajo.javajo_jewels.service.CartService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final CartService cartService;
 
     @Autowired
@@ -20,7 +23,7 @@ public class CartController {
 
     @GetMapping
     public String cart(HttpSession session, Model model) {
-        System.out.println("called getCart");
+        logger.debug("called getCart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
 
@@ -31,7 +34,7 @@ public class CartController {
 
     @PostMapping
     public String addCart(@RequestParam("productId") int productId, HttpSession session, Model model) {
-        System.out.println("called addCart");
+        logger.debug("called addCart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
         Cart cart = cartService.addCart(sessionCart, productId);
@@ -44,7 +47,7 @@ public class CartController {
 
     @DeleteMapping("/products/{productId}")
     public String deleteProduct(@RequestParam(name = "productId") int productId, HttpSession session, Model model) {
-        System.out.println("called deleteProduct");
+        logger.debug("called deleteProduct");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
         Cart cart = cartService.deleteCart(sessionCart, productId);

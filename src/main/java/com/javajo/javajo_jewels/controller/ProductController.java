@@ -9,17 +9,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final ProductService productService;
 
     @Autowired
-    ProductService productService;
+    public ProductController(ProductService productService) {
+       this.productService = productService;
+    }
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping
     public String products(Model model) {
