@@ -19,7 +19,7 @@
 
 .products {
   margin-top: 32px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -67,6 +67,7 @@
   align-items: center;
   border-top: solid #12121233 1px;
   padding-top: 16px;
+  margin-bottom: 48px;
 }
 
 .total-amount {

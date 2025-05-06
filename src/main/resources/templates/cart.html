@@ -13,22 +13,20 @@
         <h1 class="title">あなたのカート</h1>
 
         <div class="products">
-            <a th:href="|/products/${product.id}|" th:each="product : ${cart.products}">
-                <div class="product">
-                    <img class="product-image" th:src="${product.imageUrl}" />
-                    <div class="product-detail">
-                        <div th:text="${product.name}"></div>
-                        <div class="product-price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+            <div class="product" th:each="product : ${cart.products}">
+                <img class="product-image" th:src="${product.imageUrl}" />
+                <div class="product-detail">
+                    <div th:text="${product.name}"></div>
+                    <div class="product-price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
 
-                        <form th:action="@{/cart}" th:method="delete">
-                            <input type="hidden" name="productId" th:value="${product.id}" />
-                            <button type="submit" class="no-decoration-button">
-                                <img class="trash-icon" th:src="@{/images/trash.svg}" />
-                            </button>
-                        </form>
-                    </div>
+                    <form th:action="@{/cart}" th:method="delete">
+                        <input type="hidden" name="productId" th:value="${product.id}" />
+                        <button type="submit" class="no-decoration-button">
+                            <img class="trash-icon" th:src="@{/images/trash.svg}" />
+                        </button>
+                    </form>
                 </div>
-            </a>
+            </div>
         </div>
 
         <div class="total-contents">
