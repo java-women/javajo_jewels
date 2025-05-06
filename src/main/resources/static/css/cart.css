@@ -20,7 +20,6 @@
 .cart-summary {
   margin-top: 32px;
   padding: 15px;
-  background-color: #f8f9fa;
   border-radius: 8px;
 }
 
@@ -36,17 +35,8 @@
   font-size: 14px;
 }
 
-.total-price {
-  font-size: 14px;
-  color: #dc3545;
-}
-
 .order-button-area {
   text-align: center;
-}
-
-.underlined-link {
-  color: rgba(var(--color-link), var(--alpha-link));
 }
 
 .order-button {
@@ -57,32 +47,38 @@
   border-radius: 4px;
 }
 
-/*　ここから*/
 .cart-grid {
   display: flex;
   flex-direction: column;
   padding-left: 48px;
   padding-right: 48px;
   width: 100%;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .cart-header {
   width: 100%;
   display: flex;
+  justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid var(--color-border);
-
+  border-bottom: 1px solid rgb(239, 239, 239);
 }
 
 .cart-header-item {
   padding: 0 10px;
 }
 
+.cart-header-item-total {
+  padding: 0 10px;
+  text-align: left;
+}
+
 .cart-row {
   display: flex;
+  justify-content: space-between;
   padding: 15px 0;
-  border-bottom: 1px solid var(--color-border);
+  width: 100%;
 }
 
 .cart-cell {
@@ -95,7 +91,6 @@
 .cart-item-info {
   display: flex;
   gap: 15px;
-  align-items: center;
 }
 
 .cart-item-image {
@@ -112,8 +107,18 @@
   flex-grow: 1;
 }
 
-.cart-item-price,
 .cart-item-total {
+  text-align: left;
   font-size: 14px;
-  flex: 1;
+}
+
+.garbage-icon {
+  width: 20px;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
 }

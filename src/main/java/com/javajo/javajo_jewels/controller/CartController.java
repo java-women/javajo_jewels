@@ -32,8 +32,13 @@ public class CartController {
 
     @DeleteMapping("/products/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable(name = "productId") String productId) {
+    public String deleteProduct(@PathVariable(name = "productId") String productId, Model model) {
         System.out.println("called deleteProduct");
+        Cart cart = createCart(1);
+
+        model.addAttribute("cart", cart);
+
+        return "cart";
     }
 
     private Cart createCart(Integer id) {
