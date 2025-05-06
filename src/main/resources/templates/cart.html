@@ -22,7 +22,7 @@
             <div class="cart-row" th:each="product : ${cart.products}">
                 <div class="cart-cell">
                     <div class="cart-item-info">
-                        <img th:src="${product.imageUrl}" alt="商品画像" class="cart-item-image"/>
+                        <img th:src="${product.imageUrl}" class="cart-item-image"/>
                         <div class="cart-item-details">
                             <div class="cart-item-name" th:text="${product.name}"></div>
                             <form th:action="@{/cart/products/{id}(id=${product.id})}" th:method="delete">

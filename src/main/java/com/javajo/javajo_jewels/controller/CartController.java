@@ -24,9 +24,13 @@ public class CartController {
     }
 
     @PostMapping
-    public String addCart(@RequestParam("product-id") int productId) {
+    public String addCart(@RequestParam("product-id") int productId, Model model) {
         System.out.println("called addCart");
         System.out.println(productId);
+        Cart cart = createCart(1);
+
+        model.addAttribute("cart", cart);
+
         return "cart";
     }
 
