@@ -6,22 +6,22 @@
     <link th:href="@{/css/product-detail.css}" rel="stylesheet">
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
+<header th:replace="~{fragments/header :: header}"></header>
 
 <main class="main">
     <div class="main-contents">
         <div class="product">
-            <img th:src="${product.imageUrl}" class="image" />
-            <div class="product-contents">
-                <div class="title" th:text="${product.name}"></div>
-                <div class="price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+            <img class="product-image" th:src="${product.imageUrl}" />
+            <div class="product-detail">
+                <div class="product-title" th:text="${product.name}"></div>
+                <div class="product-price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
 
                 <form th:action="@{/cart}" th:method="post">
                     <input type="hidden" name="productId" th:value="${product.id}" />
-                    <button class="add-cart-button">カートに追加する</button>
+                    <button type="submit" class="add-cart-button">カートに追加する</button>
                 </form>
 
-                <div class="description" th:text="${product.description}"></div>
+                <div class="product-description" th:text="${product.description}"></div>
             </div>
         </div>
     </div>
