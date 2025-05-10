@@ -45,7 +45,7 @@ public class CartController {
         return "cart";
     }
 
-    @DeleteMapping("/products/{productId}")
+    @DeleteMapping
     public String deleteProduct(@RequestParam(name = "productId") int productId, HttpSession session, Model model) {
         logger.debug("called deleteProduct");
 
