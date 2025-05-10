@@ -7,10 +7,13 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.ArrayList;
+
+@Controller
 @RequestMapping("/orders")
 public class OrderController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,8 +34,15 @@ public class OrderController {
         var productIds = products.stream()
                 .map(Product::getId)
                 .toList();
-        orderService.createOrder(productIds);
 
-        return "products";
+        Integer orderId = orderService.createOrder(productIds);
+        model.addAttribute("orderId", orderId);
+
+        Cart cart = new Cart();
+        cart.setTotalAmount(0);
+        cart.setProducts(new ArrayList<Product>());
+        session.setAttribute("cart", cart);
+
+        return "order";
     }
 }

@@ -20,7 +20,7 @@ public class OrderService {
     private final ProductService productService;
 
     @Transactional
-    public void createOrder(List<Integer> productIds) {
+    public Integer createOrder(List<Integer> productIds) {
         var amount = productIds.stream()
                 .map(id -> productService.getProductById(id).getPrice())
                 .reduce(0, Integer::sum);
@@ -33,5 +33,7 @@ public class OrderService {
                         .build())
                 .toList();
         orderProductRepository.saveAll(orderProducts);
+
+        return order.getId();
     }
 }

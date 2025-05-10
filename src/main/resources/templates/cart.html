@@ -30,12 +30,14 @@
         </div>
 
         <div class="total-contents">
-            <div class="total-amount">
+            <div class="total-amount" th:if="${cart.totalAmount != 0}">
                 合計: <span th:text="|¥${#numbers.formatInteger(cart.totalAmount, 3, 'COMMA')}|"></span>
             </div>
-
+            <div class="total-amount" th:if="${cart.totalAmount == 0}">
+                カートが空です。
+            </div>
             <form th:action="@{/orders}" th:method="post">
-                <button type="submit" class="order-button">注文する</button>
+                <button type="submit" class="order-button" th:if="${cart.totalAmount !=0}">注文する</button>
             </form>
         </div>
     </div>

@@ -1,6 +1,7 @@
 package com.javajo.javajo_jewels.controller;
 
 import com.javajo.javajo_jewels.model.Cart;
+import com.javajo.javajo_jewels.model.Product;
 import com.javajo.javajo_jewels.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/cart")
@@ -26,6 +29,12 @@ public class CartController {
         logger.debug("called getCart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
+
+        if (sessionCart == null) {
+            sessionCart = new Cart();
+            sessionCart.setTotalAmount(0);
+            sessionCart.setProducts(new ArrayList<Product>());
+        }
 
         model.addAttribute("cart", sessionCart);
 

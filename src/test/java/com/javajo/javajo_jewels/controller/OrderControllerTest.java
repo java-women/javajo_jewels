@@ -13,9 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(controllers = OrderController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 public class OrderControllerTest {
@@ -37,8 +41,9 @@ public class OrderControllerTest {
                 .toList());
 
         mockMvc.perform(post("/orders").session(session))
+                .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("products"));
+                .andExpect(view().name("order"));
 
         verify(orderService, times(1)).createOrder(productIds);
     }
