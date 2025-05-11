@@ -13,5 +13,5 @@ public class Order {
     private Integer orderId;
     private String orderDate;
     private Integer totalAmount;
-    private List<Product> products;
+    private List<OrderProduct> products;
 }

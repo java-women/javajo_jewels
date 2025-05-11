@@ -18,7 +18,6 @@
 }
 
 .order-contents {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: solid #12121233 1px;

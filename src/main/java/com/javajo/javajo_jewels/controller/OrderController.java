@@ -1,6 +1,7 @@
 package com.javajo.javajo_jewels.controller;
 
 import com.javajo.javajo_jewels.model.Cart;
+import com.javajo.javajo_jewels.model.Order;
 import com.javajo.javajo_jewels.model.Product;
 import com.javajo.javajo_jewels.service.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
@@ -30,17 +32,15 @@ public class OrderController {
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
 
-        var products = sessionCart.getProducts();
-        var productIds = products.stream()
+        List<Product> products = sessionCart.getProducts();
+        List<Integer> productIds = products.stream()
                 .map(Product::getId)
                 .toList();
 
-        Integer orderId = orderService.createOrder(productIds);
-        model.addAttribute("orderId", orderId);
+        Order order = orderService.createOrder(productIds);
+        model.addAttribute("order", order);
 
-        Cart cart = new Cart();
-        cart.setTotalAmount(0);
-        cart.setProducts(new ArrayList<Product>());
+        Cart cart = new Cart(0, new ArrayList<>());
         session.setAttribute("cart", cart);
 
         return "order";

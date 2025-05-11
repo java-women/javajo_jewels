@@ -31,9 +31,8 @@ public class CartController {
         Cart sessionCart = (Cart) session.getAttribute("cart");
 
         if (sessionCart == null) {
-            sessionCart = new Cart();
-            sessionCart.setTotalAmount(0);
-            sessionCart.setProducts(new ArrayList<Product>());
+            Cart cart = new Cart(0, new ArrayList<>());
+            session.setAttribute("cart", cart);
         }
 
         model.addAttribute("cart", sessionCart);

@@ -11,12 +11,18 @@
 <main class="main">
     <div class="main-contents">
         <h1 class="title">注文完了</h1>
-        <div>注文ありがとうございました。またのお買い上げをお待ちしております。</div>
-        <div class="order-contents">
-            <div class="order-id">
-                注文番号：<span th:text="${orderId}"></span>
+            <div>注文ありがとうございました。またのお買い上げをお待ちしております。</div>
+            <div class="order-contents">
+                <div class="order-id">
+                    注文番号：<span th:text="${order.orderId}"></span>
+                </div>
+                <div>
+                    注文日時：<span th:text="${order.orderDate}"></span>
+                </div>
+                <div>
+                    合計： <span th:text="|¥${#numbers.formatInteger(order.totalAmount, 3, 'COMMA')}|"></span>
+                </div>
             </div>
-        </div>
     </div>
 </main>
 </body>
