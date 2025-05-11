@@ -4,13 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.javajo.javajo_jewels.model.Order;
-import com.javajo.javajo_jewels.model.OrderProduct;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.javajo.javajo_jewels.entity.OrderEntity;
 import com.javajo.javajo_jewels.entity.OrderProductEntity;
+import com.javajo.javajo_jewels.model.Order;
+import com.javajo.javajo_jewels.model.OrderProduct;
 import com.javajo.javajo_jewels.repository.OrderProductRepository;
 import com.javajo.javajo_jewels.repository.OrderRepository;
 
@@ -26,8 +26,8 @@ public class OrderService {
     @Transactional
     public Order createOrder(List<Integer> productIds) {
         Integer amount = productIds.stream()
-                .map(id -> productService.getProductById(id).getPrice())
-                .reduce(0, Integer::sum);
+                .mapToInt(id -> productService.getProductById(id).getPrice())
+                .sum();
 
         OrderEntity order = orderRepository.save(OrderEntity.builder().amount(amount).build());
 
