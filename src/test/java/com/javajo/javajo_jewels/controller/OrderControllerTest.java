@@ -47,7 +47,7 @@ public class OrderControllerTest {
         mockMvc.perform(post("/orders").session(session))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("order"));
+                .andExpect(view().name("complete"));
 
         verify(orderService, times(1)).createOrder(productIds);
     }

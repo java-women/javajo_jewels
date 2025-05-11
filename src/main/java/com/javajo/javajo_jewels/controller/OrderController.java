@@ -43,6 +43,6 @@ public class OrderController {
         Cart cart = new Cart(0, new ArrayList<>());
         session.setAttribute("cart", cart);
 
-        return "order";
+        return "complete";
     }
 }
