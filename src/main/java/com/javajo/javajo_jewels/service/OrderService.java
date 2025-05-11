@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.javajo.javajo_jewels.model.Order;
 import com.javajo.javajo_jewels.model.OrderProduct;
-import com.javajo.javajo_jewels.model.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +40,9 @@ public class OrderService {
                 .toList();
         orderProductRepository.saveAll(orderProducts);
 
-        String orderDate =  new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+        String orderDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
         List<OrderProduct> resultOrderProducts = orderProducts.stream().map(OrderProduct::from).toList();
 
-        return new Order(order.getId(), orderDate, order.getAmount(),resultOrderProducts);
+        return new Order(order.getId(), orderDate, order.getAmount(), resultOrderProducts);
     }
 }

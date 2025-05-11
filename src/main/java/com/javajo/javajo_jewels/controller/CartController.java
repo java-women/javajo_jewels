@@ -1,7 +1,6 @@
 package com.javajo.javajo_jewels.controller;
 
 import com.javajo.javajo_jewels.model.Cart;
-import com.javajo.javajo_jewels.model.Product;
 import com.javajo.javajo_jewels.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ public class CartController {
     private final CartService cartService;
 
     @Autowired
-    public CartController(CartService cartService){
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 
@@ -33,6 +32,7 @@ public class CartController {
         if (sessionCart == null) {
             Cart cart = new Cart(0, new ArrayList<>());
             session.setAttribute("cart", cart);
+            sessionCart = cart;
         }
 
         model.addAttribute("cart", sessionCart);
