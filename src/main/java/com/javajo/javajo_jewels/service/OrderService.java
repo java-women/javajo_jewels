@@ -1,7 +1,11 @@
 package com.javajo.javajo_jewels.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.javajo.javajo_jewels.model.Order;
+import com.javajo.javajo_jewels.model.OrderProduct;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,18 +24,25 @@ public class OrderService {
     private final ProductService productService;
 
     @Transactional
-    public void createOrder(List<Integer> productIds) {
-        var amount = productIds.stream()
+    public Order createOrder(List<Integer> productIds) {
+        Integer amount = productIds.stream()
                 .map(id -> productService.getProductById(id).getPrice())
                 .reduce(0, Integer::sum);
 
-        var order = orderRepository.save(OrderEntity.builder().amount(amount).build());
-        var orderProducts = productIds.stream()
+        OrderEntity order = orderRepository.save(OrderEntity.builder().amount(amount).build());
+
+        Integer orderId = order.getId();
+        List<OrderProductEntity> orderProducts = productIds.stream()
                 .map(id -> OrderProductEntity.builder()
-                        .orderId(order.getId())
+                        .orderId(orderId)
                         .productId(id)
                         .build())
                 .toList();
         orderProductRepository.saveAll(orderProducts);
+
+        String orderDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+        List<OrderProduct> resultOrderProducts = orderProducts.stream().map(OrderProduct::from).toList();
+
+        return new Order(order.getId(), orderDate, order.getAmount(), resultOrderProducts);
     }
 }

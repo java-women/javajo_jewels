@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -17,7 +19,7 @@ public class CartController {
     private final CartService cartService;
 
     @Autowired
-    public CartController(CartService cartService){
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 
@@ -26,6 +28,12 @@ public class CartController {
         logger.debug("called getCart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
+
+        if (sessionCart == null) {
+            Cart cart = new Cart(0, new ArrayList<>());
+            session.setAttribute("cart", cart);
+            sessionCart = cart;
+        }
 
         model.addAttribute("cart", sessionCart);
 
@@ -45,7 +53,7 @@ public class CartController {
         return "cart";
     }
 
-    @DeleteMapping("/products/{productId}")
+    @DeleteMapping
     public String deleteProduct(@RequestParam(name = "productId") int productId, HttpSession session, Model model) {
         logger.debug("called deleteProduct");
 
