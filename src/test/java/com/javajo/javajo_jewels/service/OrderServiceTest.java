@@ -39,19 +39,19 @@ class OrderServiceTest {
                 .name("きらめきリボンブレスレット")
                 .price(200)
                 .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
-                .imageUrl("http://image1.jpg")
+                .imageUrl("/images/product_1.png")
                 .build();
         var product2 = ProductEntity.builder()
                 .name("ふわもこユニコーンポーチ")
                 .price(550)
                 .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
-                .imageUrl("http://image2.jpg")
+                .imageUrl("images/product_2.png")
                 .build();
         var product3 = ProductEntity.builder()
                 .name("スイートキャンディボールペン")
                 .price(180)
                 .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
-                .imageUrl("http://image3.jpg")
+                .imageUrl("images/product_3.png")
                 .build();
         productRepository.saveAll(List.of(product1, product2, product3));
     }

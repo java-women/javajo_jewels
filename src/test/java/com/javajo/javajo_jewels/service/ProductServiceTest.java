@@ -31,19 +31,19 @@ class ProductServiceTest {
 //                .name("きらめきリボンブレスレット")
 //                .price(200)
 //                .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
-//                .imageUrl("http://image1.jpg")
+//                .imageUrl("/images/product_1.jpg")
 //                .build();
 //        var product2 = ProductEntity.builder()
 //                .name("ふわもこユニコーンポーチ")
 //                .price(550)
 //                .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
-//                .imageUrl("http://image2.jpg")
+//                .imageUrl("/images/product_2.png")
 //                .build();
 //        var product3 = ProductEntity.builder()
 //                .name("スイートキャンディボールペン")
 //                .price(180)
 //                .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
-//                .imageUrl("http://image3.jpg")
+//                .imageUrl("/images/product_3.png")
 //                .build();
 //        productRepository.saveAll(List.of(product1, product2, product3));
     }
@@ -60,9 +60,9 @@ class ProductServiceTest {
                         Product::getPrice,
                         Product::getImageUrl)
                 .containsExactlyInAnyOrder(
-                        tuple("きらめきリボンブレスレット", "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。", 200, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"),
-                        tuple("ふわもこユニコーンポーチ", "ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。", 550, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"),
-                        tuple("スイートキャンディボールペン", "カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！", 180, "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078"));
+                        tuple("きらめきリボンブレスレット", "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。", 200, "/images/product_1.png"),
+                        tuple("ふわもこユニコーンポーチ", "ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。", 550, "/images/product_2.png"),
+                        tuple("スイートキャンディボールペン", "カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！", 180, "/images/product_3.png"));
     }
 
     @Test
@@ -79,6 +79,6 @@ class ProductServiceTest {
                         "きらめきリボンブレスレット",
                         "大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。",
                         200,
-                        "https://sunho.store/cdn/shop/files/968615.jpg?v=1745974078");
+                        "/images/product_1.png");
     }
 }
