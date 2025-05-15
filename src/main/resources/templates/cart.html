@@ -14,7 +14,7 @@
 
         <div class="products">
             <div class="product" th:each="product : ${cart.products}">
-                <img class="product-image" th:src="${product.imageUrl}" />
+                <img class="product-image" th:src="@{${product.imageUrl}}" />
                 <div class="product-detail">
                     <div th:text="${product.name}"></div>
                     <div class="product-price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>

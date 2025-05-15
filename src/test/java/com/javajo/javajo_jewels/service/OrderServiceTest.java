@@ -36,22 +36,22 @@ class OrderServiceTest {
     @BeforeEach
     void setUp() {
         var product1 = ProductEntity.builder()
-                .name("きらめきリボンブレスレット")
-                .price(200)
-                .description("大きなリボンがついたブレスレット。特別な日にぴったりのアクセ。")
-                .imageUrl("http://image1.jpg")
+                .name("きらきらお星様チャーム")
+                .price(125)
+                .description("きらきら輝くお星様のチャーム☆ カバンやポーチにつければ、毎日がちょっぴり特別に♪")
+                .imageUrl("/images/product-1.png")
                 .build();
         var product2 = ProductEntity.builder()
-                .name("ふわもこユニコーンポーチ")
-                .price(550)
-                .description("ふわふわ手触りのユニコーン型ポーチ。小物をかわいく収納。")
-                .imageUrl("http://image2.jpg")
+                .name("虹のゆめかわヘアクリップ")
+                .price(210)
+                .description("パステルカラーの虹がきらっと光る、ゆめかわいいヘアクリップ。つけるだけで毎日がときめく魔法タイムに♪\"")
+                .imageUrl("/images/product-2.png")
                 .build();
         var product3 = ProductEntity.builder()
-                .name("スイートキャンディボールペン")
-                .price(180)
-                .description("カラフルなキャンディ風デザインのボールペン。友だちに自慢しちゃおう！")
-                .imageUrl("http://image3.jpg")
+                .name("ときめきハートリング")
+                .price(160)
+                .description("つけるたび、ドキドキしちゃう♡ 小さなハートがきらっと光る、乙女心くすぐる指輪。今日はどの指につける？")
+                .imageUrl("/images/product-3.png")
                 .build();
         productRepository.saveAll(List.of(product1, product2, product3));
     }
@@ -65,7 +65,7 @@ class OrderServiceTest {
         assertThat(orders)
                 .hasSize(1)
                 .extracting(OrderEntity::getAmount)
-                .contains(750);
+                .contains(335);
 
         var orderId = orders.getFirst().getId();
         var orderProducts = orderProductRepository.findAll();
