@@ -40,7 +40,7 @@ class CartServiceTest {
         var product2 = ProductEntity.builder()
                 .name("虹のゆめかわヘアクリップ")
                 .price(210)
-                .description("パステルカラーの虹がきらっと光る、ゆめかわいいヘアクリップ。つけるだけで毎日がときめく魔法タイムに♪\"")
+                .description("パステルカラーの虹がきらっと光る、ゆめかわいいヘアクリップ。つけるだけで毎日がときめく魔法タイムに♪")
                 .imageUrl("/images/product-2.png")
                 .build();
         var product3 = ProductEntity.builder()
