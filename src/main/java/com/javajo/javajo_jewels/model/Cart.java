@@ -13,5 +13,3 @@ public class Cart {
     private Integer totalAmount;
     private List<Product> products;
 }
-
-

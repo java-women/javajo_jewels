@@ -1,6 +1,6 @@
 <header class="header" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
     <div class="header-contents">
-        <a href="/products" class="javajo-jewels">Java女宝石</a>
-        <a href="/cart"><img class="cart-icon" th:src="@{/images/shopping-cart.svg}" /></a>
+        <a th:href="@{/products}" class="javajo-jewels">Java女宝石</a>
+        <a th:href="@{/cart}"><img th:src="@{/images/shopping-cart.svg}" class="cart-icon"/></a>
     </div>
 </header>

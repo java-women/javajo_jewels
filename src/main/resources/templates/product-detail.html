@@ -11,17 +11,17 @@
 <main class="main">
     <div class="main-contents">
         <div class="product">
-            <img class="product-image" th:src="${product.imageUrl}" />
+            <img th:src="@{${product.imageUrl}}" class="product-image"/>
             <div class="product-detail">
-                <div class="product-title" th:text="${product.name}"></div>
-                <div class="product-price" th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|"></div>
+                <div th:text="${product.name}" class="product-title"></div>
+                <div th:text="|¥${#numbers.formatInteger(product.price, 3, 'COMMA')}|" class="product-price"></div>
 
                 <form th:action="@{/cart}" th:method="post">
-                    <input type="hidden" name="productId" th:value="${product.id}" />
+                    <input type="hidden" name="productId" th:value="${product.id}"/>
                     <button type="submit" class="add-cart-button">カートに追加する</button>
                 </form>
 
-                <div class="product-description" th:text="${product.description}"></div>
+                <div th:text="${product.description}" class="product-description"></div>
             </div>
         </div>
     </div>
