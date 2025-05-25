@@ -12,6 +12,6 @@ import java.util.List;
 public class Order {
     private Integer orderId;
     private String orderDate;
-    private Integer totalAmount;
+    private Integer amount;
     private List<OrderProduct> products;
 }
