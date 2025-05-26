@@ -40,9 +40,8 @@ public class OrderService {
                 .toList();
         orderProductRepository.saveAll(orderProducts);
 
-        String orderDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
         List<OrderProduct> resultOrderProducts = orderProducts.stream().map(OrderProduct::from).toList();
 
-        return new Order(order.getId(), orderDate, order.getAmount(), resultOrderProducts);
+        return new Order(order.getId(), order.getAmount(), resultOrderProducts);
     }
 }
