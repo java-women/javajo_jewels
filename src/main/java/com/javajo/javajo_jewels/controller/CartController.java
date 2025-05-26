@@ -25,14 +25,13 @@ public class CartController {
 
     @GetMapping
     public String cart(HttpSession session, Model model) {
-        logger.debug("called getCart");
+        logger.debug("called cart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
 
         if (sessionCart == null) {
-            Cart cart = new Cart(0, new ArrayList<>());
-            session.setAttribute("cart", cart);
-            sessionCart = cart;
+            sessionCart = new Cart(0, new ArrayList<>());
+            session.setAttribute("cart", sessionCart);
         }
 
         model.addAttribute("cart", sessionCart);
@@ -41,7 +40,7 @@ public class CartController {
     }
 
     @PostMapping
-    public String addCart(@RequestParam("productId") int productId, HttpSession session, Model model) {
+    public String addCart(@RequestParam("productId") Integer productId, HttpSession session, Model model) {
         logger.debug("called addCart");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
@@ -54,7 +53,7 @@ public class CartController {
     }
 
     @DeleteMapping
-    public String deleteProduct(@RequestParam(name = "productId") int productId, HttpSession session, Model model) {
+    public String deleteProduct(@RequestParam(name = "productId") Integer productId, HttpSession session, Model model) {
         logger.debug("called deleteProduct");
 
         Cart sessionCart = (Cart) session.getAttribute("cart");
